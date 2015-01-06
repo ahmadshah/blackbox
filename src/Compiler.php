@@ -23,8 +23,6 @@ class Compiler implements Command
 
     protected $blackbox;
 
-    protected $scenarios = [];
-
     public function __construct(MakeCommand $command, Filesystem $filesystem, Configurator $config, Reader $reader)
     {
         $this->command = $command;
@@ -49,7 +47,6 @@ class Compiler implements Command
         }
 
         $this->createAbstractTestCase();
-        $this->createTestCase($this->scenarios);
     }
 
     protected function loadConfig()
@@ -104,11 +101,12 @@ class Compiler implements Command
     protected function extractScenarios($feature)
     {
         $rows = $this->reader->load($feature)->getCsv()->fetchAssoc();
+        $scenarios = [];
 
         foreach ($rows as $row) {
             if ($row['TCID'] != '') {
-                if ( ! A::has($this->scenarios, $row['TCID'])) {
-                    $this->scenarios[$row['TCID']] = [];
+                if ( ! A::has($scenarios, $row['TCID'])) {
+                    $scenarios[$row['TCID']] = [];
                 }
 
                 $object = [
@@ -118,9 +116,13 @@ class Compiler implements Command
                     'action' => $row['Action']
                 ];
 
-                array_push($this->scenarios[$row['TCID']], $object);
+                array_push($scenarios[$row['TCID']], $object);
                 unset($object);
             }
         }
+
+        $this->createTestCase($scenarios);
+
+        $this->filesystem->delete(__DIR__.'/../stubs/stubs.csv');
     }
 }
