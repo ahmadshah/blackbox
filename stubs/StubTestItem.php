@@ -1,0 +1,4 @@
+public function @TESTMETHOD()
+{
+	@ASSERTIONS
+}

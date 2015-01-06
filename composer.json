@@ -1,0 +1,28 @@
+{
+	"name": "tunebox/blackbox",
+	"description": "Selenium test framework based on PHPUnit",
+	"author": [
+		{
+			"name": "Ahmad Shah Hafizan Hamidin",
+			"email": "ahmad.hafizan@tunebox.com.my"
+		}
+	],
+	"require": {
+		"php": ">=5.4",
+		"league/csv": "dev-master",
+		"symfony/console": "~2.5",
+		"illuminate/container": "5.0.*",
+		"illuminate/filesystem": "5.0.*",
+		"phpunit/phpunit-selenium": ">=1.2",
+		"phpoffice/phpexcel": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"Blackbox\\": "src/"
+		}
+	},
+	"bin": [
+		"bin/blackbox"
+	],
+	"minimum-stability": "dev"
+}
