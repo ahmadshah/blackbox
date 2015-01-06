@@ -1,6 +1,6 @@
 <?php
 
-class @StubTestClass extends BlackboxTestCase
+class @TESTCLASS extends BlackboxTestCase
 {
 	@TESTCASES
 }

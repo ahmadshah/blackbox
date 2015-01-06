@@ -2,6 +2,7 @@
 
 use Blackbox\Reader;
 use Blackbox\Configurator;
+use Illuminate\Support\Str as S;
 use Illuminate\Support\Arr as A;
 use Blackbox\Contracts\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -66,7 +67,7 @@ class Compiler implements Command
         $this->filesystem->put(getcwd().'/'.self::TESTDIR.'/BlackboxTestCase.php', $testCase);
     }
 
-    protected function createTestCase(array $scenarios)
+    protected function createTestCase(array $scenarios, $filename)
     {
         $testCases = [];
 
@@ -80,9 +81,9 @@ class Compiler implements Command
         }
 
         $stubCase = $this->filesystem->get(__DIR__.'/../stubs/StubTest.php');
-        $stubCase = str_replace('@TESTCASES', implode($testCases, "\n"), $stubCase);
+        $stubCase = str_replace(['@TESTCLASS', '@TESTCASES'], [$filename.'Test', implode($testCases, "\n")], $stubCase);
 
-        $this->filesystem->put(getcwd().'/'.self::TESTDIR.'/SampleTest.php', $stubCase);
+        $this->filesystem->put(getcwd().'/'.self::TESTDIR.'/'.$filename.'Test.php', $stubCase);
     }
 
     protected function createTestCaseAssertions($scenario)
@@ -121,7 +122,11 @@ class Compiler implements Command
             }
         }
 
-        $this->createTestCase($scenarios);
+        $file = $this->filesystem->name($feature);
+        $extension = $this->filesystem->extension($feature);
+        $filename = S::camel(str_replace('.'.$extension, '', $file));
+
+        $this->createTestCase($scenarios, $filename);
 
         $this->filesystem->delete(__DIR__.'/../stubs/stubs.csv');
     }
