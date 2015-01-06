@@ -1,9 +1,9 @@
 <?php namespace Blackbox\Commands;
 
 use Blackbox\Contracts\Console;
-use Blackbox\Traits\CommandTrait;
 use Blackbox\Traits\ContainerTrait;
 use Illuminate\Filesystem\Filesystem;
+use Blackbox\Traits\InteractWithConsole;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class InitCommand extends Command implements Console
 {
-    use CommandTrait, ContainerTrait;
+    use InteractWithConsole, ContainerTrait;
 
     const BLACKBOX = 'blackbox.conf';
 

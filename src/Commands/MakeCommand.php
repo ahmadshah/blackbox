@@ -2,8 +2,8 @@
 
 use Blackbox\Compiler;
 use Blackbox\Contracts\Console;
-use Blackbox\Traits\CommandTrait;
 use Blackbox\Traits\ContainerTrait;
+use Blackbox\Traits\InteractWithConsole;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class MakeCommand extends Command implements Console
 {
-    use CommandTrait, ContainerTrait;
+    use InteractWithConsole, ContainerTrait;
 
     /**
      * Configure the command option
