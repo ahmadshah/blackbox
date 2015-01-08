@@ -1,10 +1,10 @@
 {
-	"name": "tunebox/blackbox",
+	"name": "ahmadshah/blackbox",
 	"description": "Selenium test framework based on PHPUnit",
 	"author": [
 		{
 			"name": "Ahmad Shah Hafizan Hamidin",
-			"email": "ahmad.hafizan@tunebox.com.my"
+			"email": "ahmadshahhafizan@gmail.com"
 		}
 	],
 	"require": {
